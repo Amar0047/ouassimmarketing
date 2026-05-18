@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aimen Ouassim — Digital Marketing Strategist</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #080808;
+    --white: #f5f0e8;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --dim: #2a2a2a;
+    --muted: #6b6b6b;
+    --border: rgba(201,168,76,0.2);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.25s ease;
+    opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    border-bottom: 1px solid transparent;
+    transition: all 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(8,8,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom-color: var(--border);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--black) !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 2px;
+    font-weight: 500 !important;
+    transition: background 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; color: var(--black) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 4rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(201,168,76,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
+  }
+  .hero-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  .hero-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(12rem, 22vw, 22rem);
+    line-height: 0.85;
+    color: rgba(201,168,76,0.04);
+    position: absolute;
+    right: -2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+  .hero-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .hero-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 9vw, 9rem);
+    line-height: 0.92;
+    letter-spacing: 0.01em;
+    max-width: 900px;
+    position: relative;
+  }
+  .hero-headline em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    max-width: 480px;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-top: 2rem;
+    position: relative;
+  }
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    position: relative;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    padding: 1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-ghost {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: color 0.3s;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+  }
+  .btn-ghost:hover { color: var(--gold); border-bottom-color: var(--gold); }
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* SECTION BASE */
+  section { padding: 7rem 4rem; position: relative; }
+  .section-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-tag::before { content: '//'; opacity: 0.6; }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    margin-bottom: 1rem;
+  }
+  .section-title em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  /* SERVICES */
+  .services { background: var(--black); }
+  .services-intro {
+    max-width: 540px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 4rem;
+    font-size: 1rem;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .service-card {
+    background: var(--black);
+    padding: 2.5rem;
+    position: relative;
+    transition: background 0.4s;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { background: rgba(201,168,76,0.04); }
+  .service-tier {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .service-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+  .service-price {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .service-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+  .service-features { list-style: none; }
+  .service-features li {
+    font-size: 0.82rem;
+    color: rgba(245,240,232,0.7);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .service-features li::before {
+    content: '→';
+    color: var(--gold);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+  .service-card.featured { background: rgba(201,168,76,0.05); }
+  .service-card.featured::before { transform: scaleX(1); }
+  .featured-badge {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: var(--black);
+    padding: 0.3rem 0.75rem;
+    font-weight: 500;
+  }
+
+  /* PORTFOLIO */
+  .portfolio { background: #0c0c0c; }
+  .portfolio-grid { display: flex; flex-direction: column; gap: 1px; margin-top: 4rem; background: var(--border); border: 1px solid var(--border); }
+  .case-card {
+    background: #0c0c0c;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .case-card:hover { background: rgba(201,168,76,0.03); }
+  .case-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: rgba(201,168,76,0.15);
+    line-height: 1;
+  }
+  .case-client {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+  .case-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+  .case-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .case-metrics { display: flex; flex-direction: column; gap: 1.25rem; }
+  .metric { text-align: right; }
+  .metric-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .metric-label {
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* BOOKING */
+  .booking {
+    background: var(--black);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .booking-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(201,168,76,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .booking-inner { position: relative; max-width: 680px; margin: 0 auto; }
+  .booking-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 7vw, 7rem);
+    line-height: 0.92;
+    margin-bottom: 1.5rem;
+  }
+  .booking-title em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    color: var(--gold);
+  }
+  .booking-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+  .booking-card {
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    background: rgba(201,168,76,0.03);
+  }
+  .booking-details {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .booking-detail {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .booking-detail span { color: var(--gold); font-size: 1.1rem; }
+  .btn-book {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--black);
+    padding: 1.1rem 3rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+    border-radius: 2px;
+  }
+  .btn-book:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 20px 60px rgba(201,168,76,0.2); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .fade-up:nth-child(2) { transition-delay: 0.1s; }
+  .fade-up:nth-child(3) { transition-delay: 0.2s; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.25rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 0 1.5rem 4rem; }
+    section { padding: 5rem 1.5rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .case-card { grid-template-columns: 1fr; gap: 1.5rem; }
+    .case-num { font-size: 2.5rem; }
+    .metric { text-align: left; }
+    .metrics { flex-direction: row; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">A<span>.</span>OUASSIM</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Results</a></li>
+    <li><a href="#booking" class="nav-cta">Book a call</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-number">01</div>
+
+  <div class="hero-tag fade-up">Digital Marketing Strategist</div>
+  <h1 class="hero-headline fade-up">
+    I turn brands into <em>growth machines</em>
+  </h1>
+  <p class="hero-sub fade-up">
+    I help ambitious businesses build marketing strategies that attract the right clients, convert consistently, and scale without chaos.
+  </p>
+  <div class="hero-actions fade-up">
+    <a href="#booking" class="btn-primary">Book a free call</a>
+    <a href="#portfolio" class="btn-ghost">See results →</a>
+  </div>
+  <div class="hero-stats fade-up">
+    <div>
+      <div class="stat-num">30+</div>
+      <div class="stat-label">Clients served</div>
+    </div>
+    <div>
+      <div class="stat-num">3X</div>
+      <div class="stat-label">Avg. ROI delivered</div>
+    </div>
+    <div>
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Strategy-first approach</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-tag">What I offer</div>
+  <h2 class="section-title">Simple packages.<br><em>Serious results.</em></h2>
+  <p class="services-intro">
+    No bloated retainers, no vague deliverables. Three clear packages built around where you are and where you want to go.
+  </p>
+
+  <div class="services-grid">
+    <div class="service-card fade-up">
+      <div class="service-tier">Tier 01 — Starter</div>
+      <div class="service-name">Clarity Sprint</div>
+      <div class="service-price">Starting from $500</div>
+      <p class="service-desc">Perfect if you need a clear marketing direction and an actionable plan — but not full execution yet.</p>
+      <ul class="service-features">
+        <li>Full marketing audit</li>
+        <li>Ideal client profile (ICP)</li>
+        <li>90-day strategy roadmap</li>
+        <li>1 content channel setup</li>
+        <li>1 strategy call + debrief</li>
+      </ul>
+    </div>
+
+    <div class="service-card featured fade-up">
+      <div class="featured-badge">Most popular</div>
+      <div class="service-tier">Tier 02 — Growth</div>
+      <div class="service-name">Growth Engine</div>
+      <div class="service-price">Starting from $1,200</div>
+      <p class="service-desc">Full strategy plus content and lead generation — for businesses ready to consistently attract and close clients.</p>
+      <ul class="service-features">
+        <li>Everything in Clarity Sprint</li>
+        <li>Monthly content strategy + calendar</li>
+        <li>LinkedIn / social presence build</li>
+        <li>Lead generation system setup</li>
+        <li>Weekly check-in calls</li>
+        <li>Proposal & outreach templates</li>
+      </ul>
+    </div>
+
+    <div class="service-card fade-up">
+      <div class="service-tier">Tier 03 — Premium</div>
+      <div class="service-name">Scale Partner</div>
+      <div class="service-price">Starting from $2,500</div>
+      <p class="service-desc">Done-with-you marketing partnership for brands serious about scaling — I work alongside you as your dedicated strategist.</p>
+      <ul class="service-features">
+        <li>Everything in Growth Engine</li>
+        <li>Full funnel strategy & build</li>
+        <li>Paid ads strategy & oversight</li>
+        <li>Monthly analytics & reporting</li>
+        <li>Priority access & unlimited messaging</li>
+        <li>Quarterly strategy reviews</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="section-tag">Case studies</div>
+  <h2 class="section-title">Real work.<br><em>Real numbers.</em></h2>
+
+  <div class="portfolio-grid">
+    <div class="case-card fade-up">
+      <div class="case-num">01</div>
+      <div>
+        <div class="case-client">E-commerce Brand — Fashion</div>
+        <div class="case-title">From invisible to converting</div>
+        <p class="case-desc">A local fashion brand had zero digital presence and inconsistent sales. Built a full content + email strategy from scratch, targeting warm audiences with value-driven content and a clear funnel.</p>
+      </div>
+      <div class="case-metrics">
+        <div class="metric">
+          <div class="metric-val">+214%</div>
+          <div class="metric-label">Website traffic</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">3.8X</div>
+          <div class="metric-label">Revenue growth</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card fade-up">
+      <div class="case-num">02</div>
+      <div>
+        <div class="case-client">B2B Consulting Firm</div>
+        <div class="case-title">LinkedIn as a client machine</div>
+        <p class="case-desc">A consulting firm relying only on referrals wanted a predictable pipeline. Built a LinkedIn outreach system with positioning, content, and a DM sequence — fully done-with-them.</p>
+      </div>
+      <div class="case-metrics">
+        <div class="metric">
+          <div class="metric-val">11</div>
+          <div class="metric-label">New clients in 60 days</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">40%</div>
+          <div class="metric-label">Discovery call rate</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card fade-up">
+      <div class="case-num">03</div>
+      <div>
+        <div class="case-client">SaaS Startup — Early stage</div>
+        <div class="case-title">Launch strategy that actually worked</div>
+        <p class="case-desc">Pre-launch SaaS with a small budget needed to build an audience before going live. Designed a waitlist campaign across LinkedIn and email that generated buzz and early users before day one.</p>
+      </div>
+      <div class="case-metrics">
+        <div class="metric">
+          <div class="metric-val">620</div>
+          <div class="metric-label">Waitlist signups</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">$0</div>
+          <div class="metric-label">Ad spend used</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="booking-bg"></div>
+  <div class="booking-inner">
+    <div class="section-tag" style="justify-content:center;">Let's talk</div>
+    <h2 class="booking-title">Ready to <em>grow?</em></h2>
+    <p class="booking-sub">
+      Book a free 30-minute strategy call. We'll look at where you are, where you want to go, and whether I'm the right person to get you there.
+    </p>
+    <div class="booking-card">
+      <div class="booking-details">
+        <div class="booking-detail"><span>⏱</span> 30 minutes</div>
+        <div class="booking-detail"><span>🎯</span> Strategy focused</div>
+        <div class="booking-detail"><span>💸</span> Completely free</div>
+        <div class="booking-detail"><span>📍</span> Video call</div>
+      </div>
+      <a href="https://calendly.com/amardelmi2/30min" target="_blank" class="btn-book">Book your free call →</a>
+    </div>
+    <p style="font-size: 0.78rem; color: var(--muted); letter-spacing: 0.05em;">No commitment. No pitch. Just honest strategy.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2026 Aimen Ouassim — Digital Marketing Strategist</div>
+  <div>
+    <a href="https://calendly.com/amardelmi2/30min" target="_blank">Book a call</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:amardelmi2@gmail.com">amardelmi2@gmail.com</a>
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animateCursor() {
+    cursor.style.left = mx - 5 + 'px';
+    cursor.style.top = my - 5 + 'px';
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx - 18 + 'px';
+    ring.style.top = ry - 18 + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2.5)'; ring.style.transform = 'scale(1.4)'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)'; });
+  });
+
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Fade-up observer
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Hero immediate reveal
+  document.querySelectorAll('.hero .fade-up').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 200 + i * 150);
+  });
+</script>
+</body>
+</html>
